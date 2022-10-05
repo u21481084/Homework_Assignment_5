@@ -1,0 +1,87 @@
+﻿@model dynamic
+       @using WebApplication1.Models
+<h1>Students</h1>
+<br />
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-3">
+            <input type="text" name="studentname" />
+        </div>
+        <div class="col-md-3">
+            <select name="classname">
+                <option selected disabled value=""> Select a Class</option>
+                @foreach (Class cs in Model.cClass)
+                {
+                    <option value="@cs.ClassName">
+                        @cs.ClassName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-primary"/>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-info">@Html.ActionLink("Clear", "Student", "Home")</button>
+            </div>
+
+        </div>
+    }
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Class</th>
+        <th>Points</th>
+        <th>Borrow Book</th>
+
+    </tr>
+    @{
+
+        var a = "";
+        foreach (Students stud in Model.stds)
+        {
+            if (stud.sStatus == "Borrow Book")
+            {
+                a = "Borrow";
+            }
+            else
+            {
+                a = "Return";
+            }
+                <tr>
+                    <td>
+                        @stud.StudentID
+                    </td>
+                    <td>
+                        @stud.StudentName
+                    </td>
+                    <td>
+                        @stud.StudentSurname
+                    </td>
+                    <td>
+                        @stud.cl
+                    </td>
+                    <td>
+                        @stud.Points
+                    </td>
+
+                    <td>
+                        @Html.ActionLink(stud.sStatus, a, "Home", new { sId = stud.StudentID, bId=Model.bID }, htmlAttributes: new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+
+
+        }
+
+    }
+
+
+</table>

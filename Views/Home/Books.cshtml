@@ -1,0 +1,96 @@
+﻿@model dynamic
+    @using WebApplication1.Models
+
+@{
+    ViewBag.Title = "Books";
+}
+
+<h2>Books</h2>
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-3">
+            <input type="text" name="bookname" />
+        </div>
+
+        <div class="col-md-3">
+            <select name="typename">
+                <option selected disabled value=""> Select a Type</option>
+                @foreach (Types type in Model.types)
+                {
+                    <option value="@type.TypeName">
+                        @type.TypeName
+                    </option>
+                }
+            </select>
+
+        </div>
+        <div class="col-md-3">
+            <select name="authorname">
+                <option selected disabled value=""> Select an Author</option>
+                @foreach (Authors author in Model.auth)
+                {
+                    <option value="@author.AuthorName">
+                        @author.AuthorName
+                    </option>
+                }
+            </select>
+
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-6">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-info">@Html.ActionLink("Clear", "Books", "Home")</button>
+            </div>
+        </div>
+      
+           
+        
+    }
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Type</th>
+        <th>Page Count</th>
+        <th>Points</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (Books book in Model.books)
+    {
+        <tr>
+            <td>
+                @book.BookID
+            </td>
+            <td>
+               @book.BookName
+            </td>
+            <td>
+                @book.Author
+            </td>
+            <td>
+               @book.Type
+            </td>
+            <td>
+                @book.PageCount
+            </td>
+            <td>
+                @book.Points
+            </td>
+            <td>
+            @book.Status
+
+            </td>
+            <td>
+                @Html.ActionLink("View", "BookUsers", "Home", new { id = book.BookID }, htmlAttributes: new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+
+</table>

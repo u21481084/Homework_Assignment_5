@@ -1,0 +1,62 @@
+﻿@model dynamic
+       @using WebApplication1.Models
+<div class="row">
+    @{
+       
+        string y = "";
+       
+        y = (Model.bbNameStatus).ToString();
+
+        <div class="col-md-6">
+            <h1>@y</h1>
+        
+        </div>
+
+    }
+</div>
+<div class="row">
+    @{ 
+        int x = 0;
+        foreach(BookBorrows item in Model.bb)
+        {
+            x++;
+        }
+        <div class="col-md-6">
+            <h3>#Borrows- @x</h3>
+        </div>
+        <div class="col-md-6">
+             @Html.ActionLink("Students", "Student", "Home", new { id=Model.ID}, htmlAttributes: new { @class = "btn btn-primary" })
+        </div>
+
+    }
+</div>
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Taken Date</th>
+        <th>Brought Date</th>
+        <th>Borrowed By</th>
+       
+    </tr>
+
+    @foreach (BookBorrows item in Model.bb)
+    {
+        <tr>
+            <td>
+                @item.bBorrowID
+            </td>
+            <td>
+                @item.bTakenDate
+            </td>
+            <td>
+                @item.bBroughtDate
+            </td>
+            <td>
+                @item.bStudentName
+            </td>
+            
+        </tr>
+    }
+
+</table>
